@@ -29,12 +29,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto createUser(UserDto request) {
-		User newUser = User.builder().name(request.name()).username(request.username())
-				.password(passwordEncoder.encode(request.password())).authorities(request.authorities())
-				.accountNonExpired(true).accountNonLocked(true).isEnabled(true).credentialsNonExpired(true).build();
+		User newUser = User.builder()
+				.name(request.name())
+				.username(request.username())
+				.password(passwordEncoder.encode(request.password()))
+				.authorities(request.authorities())
+				.accountNonExpired(true)
+				.accountNonLocked(true)
+				.isEnabled(true)
+				.credentialsNonExpired(true)
+				.build();
 		repository.save(newUser);
 		// response
-		UserDto userDto = new UserDto(newUser.getName(), newUser.getUsername(), null, newUser.getAuthorities());
+		UserDto userDto = UserDto.builder()
+				.name(newUser.getName())
+				.username(newUser.getUsername())
+				.authorities(newUser.getAuthorities())
+				.build();
 		return userDto;
 	}
 
