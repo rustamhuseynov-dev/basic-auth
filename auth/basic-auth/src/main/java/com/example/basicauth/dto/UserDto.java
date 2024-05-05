@@ -4,6 +4,9 @@ import java.util.Set;
 
 import com.example.basicauth.model.Role;
 
+import lombok.Builder;
+
+@Builder
 public record UserDto(
 		String name,
         String username,
